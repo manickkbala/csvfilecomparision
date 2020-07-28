@@ -1,0 +1,50 @@
+package filecomp;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+ 
+public class FileComparisn
+{   
+    public static void main(String[] args) throws IOException
+    { 
+    	BufferedReader reader1 = new BufferedReader(new FileReader("/Users/bala/Desktop/report1.csv"));
+		BufferedReader reader2 = new BufferedReader(new FileReader("/Users/bala/Desktop/report3.csv"));
+		String line1 = reader1.readLine();
+		String line2 = reader2.readLine();
+		boolean areEqual = true;
+		int lineNum = 1;
+		outer: while (true) {
+			line1 = reader1.readLine();
+			line2 = reader2.readLine();
+			if (line1 == null || line2 == null) {
+				break outer;
+			}
+			String[] lines1 = line1.split(",");
+			String[] lines2 = line2.split(",");
+			for (int i = 0; i < lines1.length; i++) {
+				if (!lines1[i].trim().equalsIgnoreCase(lines2[i].trim())) {
+					areEqual = false;
+					System.out.println("Mis match at line " + lineNum);
+					System.out.print("Mismatch at column ");
+					System.out.println(i+1);
+					//System.out.println("Mismatch at column " + i + 1);
+					System.out.println("File 1 content " + lines1[i]);
+					System.out.println("File 2 content " + lines2[i]);
+				}
+			}
+			lineNum++;
+		}
+		if (areEqual) {
+			System.out.println("Two files have same content.");
+		} else {
+			System.out.println("======================");
+			System.out.println("Two files have different content.");
+			System.out.println("Mismatches have been printed above");
+		}
+		reader1.close();
+		reader2.close();
+	}
+}
