@@ -30,7 +30,6 @@ public class FileComparisn
 					System.out.println("Mis match at line " + lineNum);
 					System.out.print("Mismatch at column ");
 					System.out.println(i+1);
-					//System.out.println("Mismatch at column " + i + 1);
 					System.out.println("File 1 content " + lines1[i]);
 					System.out.println("File 2 content " + lines2[i]);
 				}
@@ -40,9 +39,8 @@ public class FileComparisn
 		if (areEqual) {
 			System.out.println("Two files have same content.");
 		} else {
-			System.out.println("======================");
-			System.out.println("Two files have different content.");
-			System.out.println("Mismatches have been printed above");
+			System.out.println("=========End of comparision=============");
+
 		}
 		reader1.close();
 		reader2.close();
