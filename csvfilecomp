@@ -1,0 +1,80 @@
+package filecomp;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+ 
+public class FileComparisn
+{   
+    public static void main(String[] args) throws IOException
+    {   
+        BufferedReader reader1 = new BufferedReader(new FileReader("/Users/bala/Downloads/onew.csv"));
+         
+        BufferedReader reader2 = new BufferedReader(new FileReader("/Users/bala/Downloads/twoo.csv"));
+         
+        String line1 = reader1.readLine();
+         
+        String line2 = reader2.readLine();
+         
+        boolean areEqual = true;
+         
+        int lineNum = 1;
+         
+       // while (line1 != null || line2 != null)
+        String diffFile1 = null;
+		String diffFile2 = null;
+        int errorColumn = 0;
+       outer: while(true)
+        {
+        	 line1 = reader1.readLine();
+            
+             line2 = reader2.readLine();
+            
+        	if(line1 == null || line2 ==null)
+    		{
+    			break;
+    		}
+
+    		String[] lines1 = line1.split(",");
+    		String[] lines2 = line2.split(",");
+
+
+    		for (int i = 0; i < lines1.length; i++) {
+    			
+    			if (!lines1[i].trim().equalsIgnoreCase(lines2[i].trim())) {
+    				areEqual = false;
+    				errorColumn = i+1;
+    				diffFile1 = lines1[i];
+    				diffFile2 = lines2[i];
+    				break outer;
+    				
+    			}
+
+    		}
+             
+          
+            lineNum++;
+        }
+         
+        if(areEqual)
+        {
+            System.out.println("Two files have same content.");
+        }
+        else
+        {
+            
+        	System.out.println("Two files have different content. They differ at line "+lineNum);
+             
+        	System.out.println(diffFile1);
+        	System.out.println(diffFile2);
+        	System.out.println(errorColumn);
+            //System.out.println("File1 has "+line1 );
+           // System.out.println("File2 has "+line2 );
+            System.out.println("on line number" +lineNum);
+        }
+         
+        reader1.close();
+         
+        reader2.close();
+    }
+}
